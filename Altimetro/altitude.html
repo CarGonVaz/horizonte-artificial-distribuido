@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./altitude.css">
+        <script>
+            function setAlt(){
+                //Cogemos el valor del slider para trabajar con el
+                var Altsetting = document.getElementById("altitude").value;
+                //Cogemos las 3 manecillas
+                var Alt10k = document.getElementById("rollWidget10k");
+                var Alt1k = document.getElementById("rollWidget1k");
+                var Alt100 = document.getElementById("rollWidget100");
+                
+                //Modulamos la velocidad de giro de las manecillas
+                Roll10k = Altsetting * 360 / 100000;
+                Roll1k = Altsetting * 360 / 10000;
+                Roll100 = Altsetting * 360 / 1000;
+
+                //Aplicamos el giro a las manecillas
+                Alt10k.style.transform = "rotate("+ Roll10k +"deg)";
+                Alt1k.style.transform = "rotate("+ Roll1k +"deg)";
+                Alt100.style.transform = "rotate("+ Roll100 +"deg)";
+                
+                //Anadimos el valor numerico de la altitud
+                document.getElementById('altValue').value=Altsetting;
+            }
+        </script>
+    </head>
+
+    <body>
+        <!--Cargamos todas las imagenes del altimetro dentro del div "instrument"-->
+        <div class="instrument">
+            <div>
+              <img alt="altimeter_back" src="./img/altim_back_proto.svg" />
+            </div>
+            <div id="rollWidget100">
+                <img alt="hand_100" src="./img/altim_hhundr_proto.svg"/>
+            </div>
+            <div id="rollWidget1k">
+                <img alt="hand_1k" src="./img/altim_hthous_proto.svg"/>
+            </div>            
+            <div id="rollWidget10k">
+              <img alt="hand_10k" src="./img/altim_htenth_proto.svg"/>
+            </div>
+          </div>
+          <br>
+          <!--El slider activa la funcion cada vez que se mueve-->
+          <div class="slidecontainer">
+            <input type="range" min="1" max="100000" value="1" class="slider" id="altitude" oninput="setAlt()">
+          </div>
+          <br>
+          Altimeter (feet): <input type="text" id="altValue" value="">
+
+    </body>
+</html>
